@@ -8,6 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.concept.user.R
+import com.concept.user.application.UserApplication
+import com.concept.user.info.di.UserInfoModule
+import com.concept.user.info.ui.models.presenter.UserInfoPresenter
+import com.concept.user.info.ui.models.view.UserInfoView
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
@@ -15,8 +20,9 @@ import com.concept.user.R
  * create an instance of this fragment.
  *
  */
-class UserInfoFragment : Fragment() {
-
+class UserInfoFragment : Fragment(), UserInfoView {
+    @Inject
+    lateinit var presenter: UserInfoPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -24,6 +30,55 @@ class UserInfoFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_user_info, container, false)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        initializeDependencies()
+        presenter.getUserInfo()
+    }
+
+    private fun initializeDependencies() {
+        activity?.let {
+            UserApplication.get(it.application)
+                    .getApplicationComponent()
+                    ?.plus(UserInfoModule(this))
+                    ?.inject(this)
+        }
+    }
+
+    override fun showLoadingUserInfo() {
+    }
+
+    override fun showFailedToLoadUserInfo() {
+    }
+
+    override fun hideLoadingUserInfo() {
+
+    }
+
+    override fun displayFirstName(firstName: String?) {
+
+    }
+
+    override fun displayLastName(lastName: String?) {
+
+    }
+
+    override fun displayEmail(email: String?) {
+
+    }
+
+    override fun displayProfileImage(url: String?) {
+
+    }
+
+    override fun displayPhoneNumber(phoneNumber: String?) {
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDestroy()
+    }
 
     companion object {
         /**
@@ -32,6 +87,8 @@ class UserInfoFragment : Fragment() {
          *
          * @return A new instance of fragment UserInfoFragment.
          */
+        const val TAG = "user_info_fragment"
+
         @JvmStatic
         fun newInstance() = UserInfoFragment()
 

@@ -23,6 +23,7 @@ def retrofitVersion = "2.2.0"
 def rxJavaVersion = "2.1.0"
 def rxAndroidVersion = "2.0.2"
 def daggerVersion = "2.11"
+def glideVersion = "3.8.0"
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:$supportVersion"
@@ -42,6 +43,10 @@ dependencies {
     // Dagger2
     implementation "com.google.dagger:dagger:${daggerVersion}"
     kapt "com.google.dagger:dagger-compiler:${daggerVersion}"
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:${glideVersion}"
+
 }
 
 apply plugin: 'kotlin-android'
