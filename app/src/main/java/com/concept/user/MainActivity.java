@@ -1,4 +1,4 @@
-package com.concept.userinfo;
+package com.concept.user;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

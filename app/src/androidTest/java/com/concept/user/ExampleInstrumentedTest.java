@@ -1,4 +1,4 @@
-package com.concept.userinfo;
+package com.concept.user;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
