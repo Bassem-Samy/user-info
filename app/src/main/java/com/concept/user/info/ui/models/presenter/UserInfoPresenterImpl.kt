@@ -33,8 +33,8 @@ class UserInfoPresenterImpl(private var view: UserInfoView?,
     }
 
     private fun displayUserModel(userModel: UserModel) {
-        view?.displayFirstName(userModel.firstName)
-        view?.displayLastName(userModel.lastName)
+        view?.showUserInfoLayout()
+        view?.displayUserName(userModel.firstName, userModel.lastName)
         view?.displayEmail(userModel.email)
         view?.displayProfileImage(userModel.profilePictureUrl)
         view?.displayPhoneNumber(userModel.phoneNumber)

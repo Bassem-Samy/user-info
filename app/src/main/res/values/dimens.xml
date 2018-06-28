@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="user_profile_image_view_height">175dp</dimen>
+    <dimen name="user_profile_image_view_width">175dp</dimen>
+    <dimen name="user_profile_image_border_width">2dp</dimen>
+</resources>

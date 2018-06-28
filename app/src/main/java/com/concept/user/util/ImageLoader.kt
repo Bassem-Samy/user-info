@@ -14,6 +14,7 @@ class GlideImageLoader : ImageLoader {
         Glide.with(imageView.context)
                 .load(url)
                 .placeholder(placeholderDrawableId)
+                .dontAnimate()
                 .into(imageView)
     }
 }

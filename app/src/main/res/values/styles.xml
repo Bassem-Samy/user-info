@@ -8,4 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="userNameTextStyle">
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>

@@ -1,6 +1,8 @@
 package com.concept.user.application.di
 
 import android.app.Application
+import com.concept.user.util.GlideImageLoader
+import com.concept.user.util.ImageLoader
 import com.concept.user.util.NetworkStateHelper
 import com.concept.user.util.NetworkStateHelperImpl
 import com.google.gson.GsonBuilder
@@ -49,6 +51,12 @@ class ApplicationModule(private val application: Application, private val baseUr
     @Provides
     internal fun providesNetworkStateHelper(application: Application): NetworkStateHelper {
         return NetworkStateHelperImpl(application)
+    }
+
+    @Singleton
+    @Provides
+    internal fun providesImageLoader(): ImageLoader {
+        return GlideImageLoader()
     }
 
 }

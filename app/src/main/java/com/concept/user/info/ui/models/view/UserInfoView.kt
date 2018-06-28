@@ -5,9 +5,9 @@ interface UserInfoView {
     fun showLoadingUserInfo()
     fun showFailedToLoadUserInfo()
     fun hideLoadingUserInfo()
-    fun displayFirstName(firstName: String?)
-    fun displayLastName(lastName: String?)
+    fun displayUserName(firstName: String?, lastName: String?)
     fun displayEmail(email: String?)
     fun displayProfileImage(url: String?)
     fun displayPhoneNumber(phoneNumber: String?)
+    fun showUserInfoLayout()
 }
