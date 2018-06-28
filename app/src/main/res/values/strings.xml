@@ -4,4 +4,6 @@
     <!-- User Profile Info-->
     <string name="user_profile_name_formatted_text">%1$s %2$s</string>
     <string name="empty_user_info_field_default_text">-</string>
+    <string name="delete_user">Delete User</string>
+    <string name="loading_user_info">Loading User Info</string>
 </resources>

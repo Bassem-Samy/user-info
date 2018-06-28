@@ -9,15 +9,17 @@ import android.text.util.Linkify
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import com.airbnb.lottie.LottieDrawable
 import com.concept.user.R
 import com.concept.user.application.UserApplication
 import com.concept.user.info.di.UserInfoModule
 import com.concept.user.info.ui.models.presenter.UserInfoPresenter
 import com.concept.user.info.ui.models.view.UserInfoView
 import com.concept.user.util.ImageLoader
+import com.concept.user.util.enableChangingAnimateLayoutChanges
 import kotlinx.android.synthetic.main.fragment_user_info.*
 import javax.inject.Inject
+
 
 /**
  * A simple [Fragment] subclass.
@@ -54,15 +56,25 @@ class UserInfoFragment : Fragment(), UserInfoView {
     }
 
     override fun showLoadingUserInfo() {
+        loading_user_info_constraint_layout.visibility = View.VISIBLE
+        progress_animation_view.playAnimation()
+        progress_animation_view.repeatMode = LottieDrawable.REVERSE
+
+    }
+
+
+    override fun showUserInfoLayout() {
+        user_info_constraint_layout.visibility = View.VISIBLE
+        user_info_constraint_layout.enableChangingAnimateLayoutChanges()
+    }
+
+    override fun hideLoadingUserInfo() {
+        loading_user_info_constraint_layout.visibility = View.GONE
+
     }
 
     override fun showFailedToLoadUserInfo() {
     }
-
-    override fun hideLoadingUserInfo() {
-
-    }
-
 
     @SuppressLint("StringFormatInvalid")
     override fun displayUserName(firstName: String?, lastName: String?) {
@@ -93,9 +105,6 @@ class UserInfoFragment : Fragment(), UserInfoView {
         }
     }
 
-    override fun showUserInfoLayout() {
-
-    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -115,14 +124,4 @@ class UserInfoFragment : Fragment(), UserInfoView {
         fun newInstance() = UserInfoFragment()
 
     }
-    /* animations
-    android:animateLayoutChanges="true"
-https://android--examples.blogspot.com/2017/02/android-fade-slide-explode-transition.html
-
-    TransitionManager.beginDelayedTransition(mCLayout,makeExplodeTransition());
-                toggleVisibility(mImageView,mImageViewSecond);
-                to do: ui then tests
-                implement delete!
-     */
-
 }

@@ -25,6 +25,7 @@ def rxAndroidVersion = "2.0.2"
 def daggerVersion = "2.11"
 def glideVersion = "3.8.0"
 def circularImageViewVersion = "2.2.0"
+def lottieVersion = "2.5.1"
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:$supportVersion"
@@ -50,6 +51,9 @@ dependencies {
 
     // circular image view
     implementation "de.hdodenhof:circleimageview:${circularImageViewVersion}"
+
+    // lottie animations
+    implementation "com.airbnb.android:lottie:${lottieVersion}"
 
 
 }

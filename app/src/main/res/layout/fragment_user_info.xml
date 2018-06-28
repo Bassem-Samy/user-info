@@ -1,6 +1,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorMainBackground"
@@ -11,43 +12,90 @@
         android:layout_height="match_parent">
 
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/user_info_constraint_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:paddingEnd="@dimen/content_horizontal_padding"
+            android:paddingStart="@dimen/content_horizontal_padding"
+            android:visibility="invisible"
+            >
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/user_profile_image_view"
                 android:layout_width="@dimen/user_profile_image_view_width"
                 android:layout_height="@dimen/user_profile_image_view_height"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:civ_border_width="@dimen/user_profile_image_border_width"
+                android:layout_marginTop="@dimen/user_profile_image_margin_top"
                 app:civ_border_color="@color/colorUserProfileBorder"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:civ_border_width="@dimen/user_profile_image_border_width"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/user_name_text_view"
                 style="@style/userNameTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/user_name_text_view_margin"
                 app:layout_constraintTop_toBottomOf="@id/user_profile_image_view" />
 
             <TextView
                 android:id="@+id/user_email_text_view"
+                style="@style/userInfoClickableFieldTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/user_name_text_view" />
 
             <TextView
                 android:id="@+id/user_phone_number_text_view"
+                style="@style/userInfoClickableFieldTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/user_email_text_view" />
 
+            <Button
+                android:id="@+id/delete_user_button"
+                style="@style/mainPrimaryButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin15"
+                android:text="@string/delete_user"
+                app:layout_constraintTop_toBottomOf="@id/user_phone_number_text_view" />
         </android.support.constraint.ConstraintLayout>
+
     </ScrollView>
 
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/loading_user_info_constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/progress_animation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_rawRes="@raw/main_loading_animation" />
+
+        <TextView
+            style="@style/userInfoLoadingMessageTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin5"
+            android:text="@string/loading_user_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progress_animation_view" />
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -5,4 +5,5 @@
     <color name="colorAccent">#2CE98C</color>
     <color name="colorUserProfileBorder">#10000000</color>
     <color name="colorMainBackground">#FFFFFF</color>
+    <color name="colorUserInfoClickableFieldColor">#FF7F5C</color>
 </resources>

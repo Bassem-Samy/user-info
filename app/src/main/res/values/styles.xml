@@ -10,6 +10,21 @@
 
     <style name="userNameTextStyle">
         <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/user_profile_name_textSize</item>
+
     </style>
+
+    <style name="userInfoClickableFieldTextStyle">
+        <item name="android:textSize">@dimen/user_info_clickable_field_textSize</item>
+        <item name="android:textColor">@color/colorUserInfoClickableFieldColor</item>
+        <item name="android:textColorLink">@color/colorUserInfoClickableFieldColor</item>
+    </style>
+
+    <style name="mainPrimaryButtonStyle">
+        <item name="android:background">@drawable/main_primary_button_background_selector</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="userInfoLoadingMessageTextStyle"></style>
 
 </resources>

@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="margin5">5dp</dimen>
+    <dimen name="margin15">15dp</dimen>
     <dimen name="user_profile_image_view_height">175dp</dimen>
     <dimen name="user_profile_image_view_width">175dp</dimen>
     <dimen name="user_profile_image_border_width">2dp</dimen>
+    <dimen name="user_profile_image_margin_top">16dp</dimen>
+    <dimen name="user_profile_name_textSize">24sp</dimen>
+    <dimen name="user_name_text_view_margin">10dp</dimen>
+    <dimen name="user_info_clickable_field_textSize">20sp</dimen>
+    <dimen name="content_horizontal_padding">16sp</dimen>
+
 </resources>
