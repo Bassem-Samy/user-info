@@ -28,7 +28,7 @@ class UserInfoInteractorImpl(private val userRepository: UserRepository) : UserI
         }
     }
 
-    override fun deleteUser(): Single<Result<Void>> {
+    override fun deleteUser(): Single<Result<String?>> {
         return userRepository.deleteUser(userId)
     }
 }

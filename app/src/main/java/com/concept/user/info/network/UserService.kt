@@ -11,5 +11,5 @@ interface UserService {
     fun getUser(): Single<UserNetworkModel>
 
     @DELETE("user/{id}")
-    fun deleteUser(@Path("id") id: String): Single<Result<Void>>
+    fun deleteUser(@Path("id") id: String): Single<Result<String?>>
 }

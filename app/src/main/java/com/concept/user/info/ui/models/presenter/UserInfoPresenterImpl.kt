@@ -4,6 +4,7 @@ import com.concept.user.info.ui.models.UserModel
 import com.concept.user.info.ui.models.interactor.UserInfoInteractor
 import com.concept.user.info.ui.models.view.UserInfoView
 import com.concept.user.util.NetworkStateHelper
+import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -14,12 +15,12 @@ class UserInfoPresenterImpl(private var view: UserInfoView?,
                             private val networkStateHelper: NetworkStateHelper)
     : UserInfoPresenter {
     private val compositeDisposable = CompositeDisposable()
-    override fun getUserInfo() {
+    override fun getUserInfo(observeOnScheduler: Scheduler) {
         disposeRequests()
         view?.showLoadingUserInfo()
         view?.hideLoadAgainuserInfo()
         userInfoInteractor.getUser().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(observeOnScheduler)
                 .subscribe({ userModel: UserModel? ->
                     view?.hideLoadingUserInfo()
                     if (userModel == null) {
@@ -33,12 +34,12 @@ class UserInfoPresenterImpl(private var view: UserInfoView?,
                 })
     }
 
-    override fun deleteUser() {
+    override fun deleteUser(observeOnScheduler: Scheduler) {
         view?.showLoadingDeletingUser()
         view?.hideUserInfo()
         disposeRequests()
         userInfoInteractor.deleteUser().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(observeOnScheduler)
                 .subscribe({ result ->
                     view?.hideLoadingDeletingUser()
                     if (result.response().code() == 200) {

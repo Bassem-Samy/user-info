@@ -18,6 +18,7 @@ import com.concept.user.info.ui.models.presenter.UserInfoPresenter
 import com.concept.user.info.ui.models.view.UserInfoView
 import com.concept.user.util.ImageLoader
 import com.concept.user.util.enableChangingAnimateLayoutChanges
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_user_info.*
 import javax.inject.Inject
 
@@ -45,7 +46,7 @@ class UserInfoFragment : Fragment(), UserInfoView {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initializeDependencies()
-        presenter.getUserInfo()
+        presenter.getUserInfo(AndroidSchedulers.mainThread())
         delete_user_button.setOnClickListener { onDeleteButtonClicked() }
         load_user_again_button.setOnClickListener { onLoadAgainUserClicked() }
     }
@@ -92,11 +93,11 @@ class UserInfoFragment : Fragment(), UserInfoView {
     }
 
     private fun onDeleteButtonClicked() {
-        presenter.deleteUser()
+        presenter.deleteUser(AndroidSchedulers.mainThread())
     }
 
     private fun onLoadAgainUserClicked() {
-        presenter.getUserInfo()
+        presenter.getUserInfo(AndroidSchedulers.mainThread())
     }
 
     override fun showLoadingUserInfo() {

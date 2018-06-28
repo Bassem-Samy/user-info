@@ -12,7 +12,7 @@ class UserRepositoryImpl(private val service: UserService) : UserRepository {
         return service.getUser()
     }
 
-    override fun deleteUser(id: String): Single<Result<Void>> {
+    override fun deleteUser(id: String): Single<Result<String?>> {
         return service.deleteUser(id)
     }
 }
