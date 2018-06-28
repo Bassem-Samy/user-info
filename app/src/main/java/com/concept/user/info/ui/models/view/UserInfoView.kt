@@ -10,4 +10,11 @@ interface UserInfoView {
     fun displayProfileImage(url: String?)
     fun displayPhoneNumber(phoneNumber: String?)
     fun showUserInfoLayout()
+    fun showLoadingDeletingUser()
+    fun showSuccessfullyDeletedUser()
+    fun showFailedToDeleteUser()
+    fun hideLoadingDeletingUser()
+    fun showLoadAgainUserInfo()
+    fun hideLoadAgainuserInfo()
+    fun hideUserInfo()
 }

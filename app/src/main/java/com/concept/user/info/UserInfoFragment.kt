@@ -3,6 +3,7 @@ package com.concept.user.info
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.text.TextUtils
 import android.text.util.Linkify
@@ -29,6 +30,7 @@ import javax.inject.Inject
  */
 class UserInfoFragment : Fragment(), UserInfoView {
 
+
     @Inject
     lateinit var imageLoader: ImageLoader
     @Inject
@@ -44,6 +46,8 @@ class UserInfoFragment : Fragment(), UserInfoView {
         super.onActivityCreated(savedInstanceState)
         initializeDependencies()
         presenter.getUserInfo()
+        delete_user_button.setOnClickListener { onDeleteButtonClicked() }
+        load_user_again_button.setOnClickListener { onLoadAgainUserClicked() }
     }
 
     private fun initializeDependencies() {
@@ -53,24 +57,6 @@ class UserInfoFragment : Fragment(), UserInfoView {
                     ?.plus(UserInfoModule(this))
                     ?.inject(this)
         }
-    }
-
-    override fun showLoadingUserInfo() {
-        loading_user_info_constraint_layout.visibility = View.VISIBLE
-        progress_animation_view.playAnimation()
-        progress_animation_view.repeatMode = LottieDrawable.REVERSE
-
-    }
-
-
-    override fun showUserInfoLayout() {
-        user_info_constraint_layout.visibility = View.VISIBLE
-        user_info_constraint_layout.enableChangingAnimateLayoutChanges()
-    }
-
-    override fun hideLoadingUserInfo() {
-        loading_user_info_constraint_layout.visibility = View.GONE
-
     }
 
     override fun showFailedToLoadUserInfo() {
@@ -105,6 +91,65 @@ class UserInfoFragment : Fragment(), UserInfoView {
         }
     }
 
+    private fun onDeleteButtonClicked() {
+        presenter.deleteUser()
+    }
+
+    private fun onLoadAgainUserClicked() {
+        presenter.getUserInfo()
+    }
+
+    override fun showLoadingUserInfo() {
+
+        loading_user_info_constraint_layout.visibility = View.VISIBLE
+        progress_animation_view.playAnimation()
+        progress_animation_view.repeatMode = LottieDrawable.INFINITE
+
+    }
+
+
+    override fun showUserInfoLayout() {
+        user_info_constraint_layout.visibility = View.VISIBLE
+        user_info_constraint_layout.enableChangingAnimateLayoutChanges()
+    }
+
+    override fun hideLoadingUserInfo() {
+        loading_user_info_constraint_layout.visibility = View.GONE
+
+    }
+
+    override fun hideUserInfo() {
+        user_info_constraint_layout.visibility = View.INVISIBLE
+    }
+
+    override fun showLoadingDeletingUser() {
+
+        loading_deleting_user_constraint_layout.visibility = View.VISIBLE
+        progress_deleting_user_animation_view.playAnimation()
+        progress_deleting_user_animation_view.repeatMode = LottieDrawable.INFINITE
+    }
+
+    override fun showSuccessfullyDeletedUser() {
+        Snackbar.make(root_coordinator_layout, R.string.successfully_deleted_user, Snackbar.LENGTH_SHORT).show()
+
+    }
+
+    override fun showFailedToDeleteUser() {
+        Snackbar.make(root_coordinator_layout, R.string.failed_to_delete_user, Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun hideLoadingDeletingUser() {
+        loading_deleting_user_constraint_layout.visibility = View.GONE
+        progress_deleting_user_animation_view.cancelAnimation()
+    }
+
+    override fun showLoadAgainUserInfo() {
+        load_again_user_constraint_layout.visibility = View.VISIBLE
+    }
+
+    override fun hideLoadAgainuserInfo() {
+        load_again_user_constraint_layout.visibility = View.GONE
+    }
 
     override fun onDestroy() {
         super.onDestroy()

@@ -7,13 +7,14 @@ import retrofit2.adapter.rxjava2.Result
 
 
 class UserInfoInteractorImpl(private val userRepository: UserRepository) : UserInfoInteractor {
-    private val defaultId = "1"
+    private var userId = "1"
     override fun getUser(): Single<UserModel?> {
         return userRepository.getUser().map { model ->
             if (model != null) {
                 model?.let {
+                    it.id?.let { id -> userId = id }
                     return@map UserModel(
-                            it.id ?: defaultId,
+                            it.id ?: userId,
                             it.firstName,
                             it.lastName,
                             it.phoneNumber,
@@ -27,7 +28,7 @@ class UserInfoInteractorImpl(private val userRepository: UserRepository) : UserI
         }
     }
 
-    override fun deleteUser(id: String): Single<Result<Void>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun deleteUser(): Single<Result<Void>> {
+        return userRepository.deleteUser(userId)
     }
 }

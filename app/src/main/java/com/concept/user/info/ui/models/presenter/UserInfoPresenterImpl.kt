@@ -17,6 +17,7 @@ class UserInfoPresenterImpl(private var view: UserInfoView?,
     override fun getUserInfo() {
         disposeRequests()
         view?.showLoadingUserInfo()
+        view?.hideLoadAgainuserInfo()
         userInfoInteractor.getUser().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ userModel: UserModel? ->
@@ -29,6 +30,28 @@ class UserInfoPresenterImpl(private var view: UserInfoView?,
                 }, { _ ->
                     view?.showFailedToLoadUserInfo()
                     view?.hideLoadingUserInfo()
+                })
+    }
+
+    override fun deleteUser() {
+        view?.showLoadingDeletingUser()
+        view?.hideUserInfo()
+        disposeRequests()
+        userInfoInteractor.deleteUser().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+                    view?.hideLoadingDeletingUser()
+                    if (result.response().code() == 200) {
+
+                        view?.showSuccessfullyDeletedUser()
+                    } else {
+                        view?.showFailedToDeleteUser()
+                    }
+                    view?.showLoadAgainUserInfo()
+                }, { _ ->
+                    view?.hideLoadingDeletingUser()
+                    view?.showFailedToDeleteUser()
+                    view?.showLoadAgainUserInfo()
                 })
     }
 

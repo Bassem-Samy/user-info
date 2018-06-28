@@ -9,5 +9,5 @@ interface UserInfoInteractor {
 
 
     fun getUser(): Single<UserModel?>
-    fun deleteUser(id: String): Single<Result<Void>>
+    fun deleteUser(): Single<Result<Void>>
 }
