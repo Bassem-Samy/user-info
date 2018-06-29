@@ -100,11 +100,15 @@ class UserInfoFragment : Fragment(), UserInfoView {
         presenter.getUserInfo(AndroidSchedulers.mainThread())
     }
 
+    override fun showNoInternet() {
+        Snackbar.make(root_coordinator_layout, R.string.no_internet_please_try_again_later, Snackbar.LENGTH_SHORT).show()
+    }
+
     override fun showLoadingUserInfo() {
 
         loading_user_info_constraint_layout.visibility = View.VISIBLE
-        progress_animation_view.playAnimation()
-        progress_animation_view.repeatMode = LottieDrawable.INFINITE
+      //  progress_animation_view.playAnimation()
+
 
     }
 
@@ -126,8 +130,8 @@ class UserInfoFragment : Fragment(), UserInfoView {
     override fun showLoadingDeletingUser() {
 
         loading_deleting_user_constraint_layout.visibility = View.VISIBLE
-        progress_deleting_user_animation_view.playAnimation()
-        progress_deleting_user_animation_view.repeatMode = LottieDrawable.INFINITE
+        //progress_deleting_user_animation_view.playAnimation()
+
     }
 
     override fun showSuccessfullyDeletedUser() {

@@ -3,6 +3,7 @@ package com.concept.user.info.ui.models.interactor
 import com.concept.user.info.repository.UserRepository
 import com.concept.user.info.ui.models.UserModel
 import io.reactivex.Single
+import okhttp3.ResponseBody
 import retrofit2.adapter.rxjava2.Result
 
 
@@ -28,7 +29,7 @@ class UserInfoInteractorImpl(private val userRepository: UserRepository) : UserI
         }
     }
 
-    override fun deleteUser(): Single<Result<String?>> {
+    override fun deleteUser(): Single<Result<ResponseBody>> {
         return userRepository.deleteUser(userId)
     }
 }

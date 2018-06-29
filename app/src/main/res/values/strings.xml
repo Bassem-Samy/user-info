@@ -10,4 +10,5 @@
     <string name="load_user_again">Load User Again</string>
     <string name="successfully_deleted_user">Successfully Deleted User</string>
     <string name="failed_to_delete_user">Failed To Delete User</string>
+    <string name="no_internet_please_try_again_later">No Internet connection, please try again later</string>
 </resources>

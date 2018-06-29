@@ -1,6 +1,7 @@
 package com.concept.user.info.network
 
 import io.reactivex.Single
+import okhttp3.ResponseBody
 import retrofit2.adapter.rxjava2.Result
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -11,5 +12,5 @@ interface UserService {
     fun getUser(): Single<UserNetworkModel>
 
     @DELETE("user/{id}")
-    fun deleteUser(@Path("id") id: String): Single<Result<String?>>
+    fun deleteUser(@Path("id") id: String): Single<Result<ResponseBody>>
 }

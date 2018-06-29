@@ -17,6 +17,10 @@ class UserInfoPresenterImpl(private var view: UserInfoView?,
     private val compositeDisposable = CompositeDisposable()
     override fun getUserInfo(observeOnScheduler: Scheduler) {
         disposeRequests()
+        if (!networkStateHelper.hasInternet()) {
+            view?.showNoInternet()
+            return
+        }
         view?.showLoadingUserInfo()
         view?.hideLoadAgainuserInfo()
         userInfoInteractor.getUser().subscribeOn(Schedulers.io())
@@ -35,6 +39,10 @@ class UserInfoPresenterImpl(private var view: UserInfoView?,
     }
 
     override fun deleteUser(observeOnScheduler: Scheduler) {
+        if (!networkStateHelper.hasInternet()) {
+            view?.showNoInternet()
+            return
+        }
         view?.showLoadingDeletingUser()
         view?.hideUserInfo()
         disposeRequests()

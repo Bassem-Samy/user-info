@@ -17,4 +17,5 @@ interface UserInfoView {
     fun showLoadAgainUserInfo()
     fun hideLoadAgainuserInfo()
     fun hideUserInfo()
+    fun showNoInternet()
 }

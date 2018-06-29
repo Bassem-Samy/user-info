@@ -1,5 +1,6 @@
 package com.concept.user
 
+import com.bumptech.glide.load.engine.cache.DiskCache
 import com.concept.user.info.ui.models.UserModel
 import com.concept.user.info.ui.models.interactor.UserInfoInteractor
 import com.concept.user.info.ui.models.presenter.UserInfoPresenter
@@ -8,6 +9,11 @@ import com.concept.user.info.ui.models.view.UserInfoView
 import com.concept.user.util.NetworkStateHelper
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import okhttp3.Cache
+import okhttp3.MediaType
+import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
+import okio.BufferedSource
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -21,6 +27,7 @@ import retrofit2.adapter.rxjava2.Result
 
 @RunWith(MockitoJUnitRunner::class)
 
+
 class UserPresenterUnitTest {
     private lateinit var presenter: UserInfoPresenter
     @Mock
@@ -32,14 +39,16 @@ class UserPresenterUnitTest {
 
     @Before
     fun setup() {
-        Mockito.`when`(networkStateHelper.hasInternet()).thenReturn(true)
+
         presenter = UserInfoPresenterImpl(view, interactor, networkStateHelper)
     }
 
     @Test
     fun testPresenterGetUser() {
+        reset(networkStateHelper)
         reset(interactor)
         reset(view)
+        Mockito.`when`(networkStateHelper.hasInternet()).thenReturn(true)
         val userModel = UserModel(
                 "0da17602-dad9-4a9e-9d4c-772252f65777",
                 "John",
@@ -60,9 +69,15 @@ class UserPresenterUnitTest {
 
     @Test
     fun testPresenterDeleteUser() {
+        reset(networkStateHelper)
         reset(interactor)
         reset(view)
-        Mockito.`when`(interactor.deleteUser()).thenReturn(Single.just(Result.response(Response.success(""))))
+        val emptyResponseBody: ResponseBody = ResponseBody.create(MediaType.parse("*"), "empty")
+        Mockito.`when`(networkStateHelper.hasInternet()).thenReturn(true)
+        Mockito.`when`(interactor.deleteUser()).thenReturn(Single.just(Result.response(Response.success(
+                emptyResponseBody
+        ))))
+
         presenter.deleteUser(Schedulers.io())
 
         verify(interactor).deleteUser()
@@ -71,4 +86,32 @@ class UserPresenterUnitTest {
         verify(view).hideLoadingDeletingUser()
         verify(view).showSuccessfullyDeletedUser()
     }
+
+    @Test
+    fun testNoInternetGetUserInfo() {
+        reset(networkStateHelper)
+        reset(interactor)
+        reset(view)
+
+        Mockito.`when`(networkStateHelper.hasInternet()).thenReturn(false)
+
+        presenter.getUserInfo(Schedulers.io())
+        verify(view).showNoInternet()
+
+    }
+
+    @Test
+    fun testNoInternetDeleteUser() {
+        reset(networkStateHelper)
+        reset(interactor)
+        reset(view)
+
+        Mockito.`when`(networkStateHelper.hasInternet()).thenReturn(false)
+
+        presenter.deleteUser(Schedulers.io())
+        verify(view).showNoInternet()
+
+    }
+
+
 }
